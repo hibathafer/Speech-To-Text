@@ -150,7 +150,7 @@ resume_button.pack(side="left", padx=5)
 # Text Area + Scrollbar
 # =====================
 text_frame = tk.Frame(main_frame)
-text_frame.pack(fill="both", expand=True)
+text_frame.pack(fill="both", expand=True, pady=10)
 
 scrollbar = tk.Scrollbar(text_frame)
 scrollbar.pack(side="right", fill="y")
@@ -161,12 +161,8 @@ text_area.pack(side="top", fill="both", expand=True)
 scrollbar.config(command=text_area.yview)
 
 # =====================
-# Buttons Frame
+# Action Buttons Frame (يجب أن يكون بعد text_area)
 # =====================
-buttons_frame = tk.Frame(main_frame)
-buttons_frame.pack(fill="x", pady=15)
-
-# Additional buttons frame for save, clear, exit
 action_buttons_frame = tk.Frame(main_frame)
 action_buttons_frame.pack(fill="x", pady=10)
 
@@ -308,14 +304,49 @@ def save_text():
 def exit_app():
     root.quit()
 
+def copy_to_clipboard():
+    """نسخ كل النص للحافظة"""
+    text = text_area.get("1.0", tk.END)
+    if text.strip():
+        root.clipboard_clear()
+        root.clipboard_append(text)
+        messagebox.showinfo("نسخ", "تم نسخ النص إلى الحافظة! ✅")
+    else:
+        messagebox.showwarning("تحذير", "لا يوجد نص للنسخ!")
+
+def share_text():
+    """مشاركة النص عبر وسائل التواصل"""
+    text = text_area.get("1.0", tk.END).strip()
+    if not text:
+        messagebox.showwarning("تحذير", "لا يوجد نص للمشاركة!")
+        return
+    
+    # إنشнякة لنسخ النص للمشاركة
+    root.clipboard_clear()
+    root.clipboard_append(text)
+    messagebox.showinfo("مشاركة", 
+        "تم نسخ النص! \n\n"
+        "يمكنك الآن لصقه في:\n"
+        "📱 WhatsApp\n"
+        "📘 Facebook\n"
+        "🐦 Twitter\n"
+        "📧 البريد الإلكتروني\n"
+        "وغيرها...")
+
 # Exit Button
 save_button = tk.Button(action_buttons_frame, text="💾 حفظ الملف", font=("Segoe UI", 11), width=12, bg="#27ae60", fg="white", relief="flat", command=save_text)
 save_button.pack(side="left", padx=5)
 
+copy_button = tk.Button(action_buttons_frame, text="📋 نسخ", font=("Segoe UI", 11), width=10, bg="#3498db", fg="white", relief="flat", command=copy_to_clipboard)
+copy_button.pack(side="left", padx=5)
+
+share_button = tk.Button(action_buttons_frame, text="📤 مشاركة", font=("Segoe UI", 11), width=12, bg="#1abc9c", fg="white", relief="flat", command=share_text)
+share_button.pack(side="left", padx=5)
+
 clear_button = tk.Button(action_buttons_frame, text="🗑️ مسح النص", font=("Segoe UI", 11), width=12, bg="#f39c12", fg="white", relief="flat", command=clear_text)
 clear_button.pack(side="left", padx=5)
 
-exit_button = tk.Button(action_buttons_frame, text="الخروج", font=("Segoe UI", 11), width=12, bg="#e74c3c", fg="white", relief="flat", command=exit_app)
+exit_button = tk.Button(action_buttons_frame, text="❌ الخروج", font=("Segoe UI", 11), width=10, bg="#e74c3c", fg="white", relief="flat", command=exit_app)
 exit_button.pack(side="left", padx=5)
 
 # Connect Microphone Button
