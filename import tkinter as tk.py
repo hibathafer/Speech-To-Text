@@ -7,7 +7,7 @@ from tkinter import filedialog, messagebox
 root = tk.Tk()
 root.title("Speech to Text - Graduation Project")
 root.geometry("1000x700")
-root.resizable(True, True)
+root.resizable(False, False)
 
 # =====================
 # Top Bar
