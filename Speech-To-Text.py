@@ -6,6 +6,7 @@ import time
 import os
 import configparser
 import logging
+import re
 
 # Setup logging and config
 logging.basicConfig(filename='speech_to_text.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -68,11 +69,20 @@ def convert_special_characters(text):
     return text
 
 def format_text_output(text):
-    """تنسيق النص وعرضه"""
+    """تنسيق النص وعرضه مع تقسيم إلى جمل منفصلة"""
     global sentence_count
-    sentence_count += 1
     current_time = time.strftime("%H:%M:%S")
-    return f"\n【 جملة #{sentence_count} 】 [{current_time}]\n{text}\n" + ("=" * 60)
+    
+    # تقسيم النص إلى جمل باستخدام النقاط أو علامات الاستفهام أو التعجب
+    sentences = re.split(r'(?<=[.!?])\s+', text.strip())
+    formatted_output = ""
+    
+    for sentence in sentences:
+        if sentence.strip():  # تجاهل الجمل الفارغة
+            sentence_count += 1
+            formatted_output += f"\n【 جملة #{sentence_count} 】 [{current_time}]\n{sentence.strip()}\n" + ("=" * 60) + "\n"
+    
+    return formatted_output
 
 # =====================
 # Status Label
@@ -175,38 +185,53 @@ def record_audio():
         mic_button.config(text="🎙️ Start Recording", bg="#3498db")
         pause_button.config(state="disabled")
         resume_button.config(state="disabled")
-        status_label.config(text="Status: Processing...", fg="orange")
+        status_label.config(text="Status: Stopping...", fg="orange")
 
 def capture_audio():
-    global recording
+    global recording, paused
     try:
         with sr.Microphone() as source:
             status_label.config(text="Status: Adjusting for noise...", fg="orange")
             recognizer.adjust_for_ambient_noise(source, duration=1)
-            status_label.config(text="Status: Listening...", fg="blue")
-            audio_data = recognizer.listen(source, timeout=60, phrase_time_limit=10)
-        status_label.config(text="Status: Converting...", fg="purple")
-        text = recognizer.recognize_google(audio_data, language=selected_dialect)
-        text = convert_special_characters(text)
-        formatted_text = format_text_output(text)
-        text_area.insert(tk.END, formatted_text)
-        text_area.see(tk.END)
-        status_label.config(text="Status: Done", fg="green")
-        root.clipboard_clear()
-        root.clipboard_append(text)
-        logging.info("Speech recognized and converted successfully")
-    except sr.UnknownValueError:
-        messagebox.showwarning("Warning", "لم يتمكن النظام من فهم الصوت. حاول مرة أخرى.")
-        status_label.config(text="Status: Idle", fg="gray")
-        logging.warning("Unknown value error during speech recognition")
-    except sr.RequestError:
-        messagebox.showerror("Error", "خطأ في الاتصال. تأكد من الإنترنت.")
-        status_label.config(text="Status: Error", fg="red")
-        logging.error("Request error during speech recognition")
+            status_label.config(text="Status: Listening continuously...", fg="blue")
+            
+            while recording:
+                if not paused:
+                    try:
+                        audio_data = recognizer.listen(source, timeout=5, phrase_time_limit=30)
+                        status_label.config(text="Status: Converting...", fg="purple")
+                        text = recognizer.recognize_google(audio_data, language=selected_dialect)
+                        text = convert_special_characters(text)
+                        formatted_text = format_text_output(text)
+                        text_area.insert(tk.END, formatted_text)
+                        text_area.see(tk.END)
+                        status_label.config(text="Status: Done", fg="green")
+                        root.clipboard_clear()
+                        root.clipboard_append(text)
+                        logging.info("Speech recognized and converted successfully")
+                    except sr.WaitTimeoutError:
+                        continue
+                    except sr.UnknownValueError:
+                        status_label.config(text="Status: Idle", fg="gray")
+                        logging.warning("Unknown value error during speech recognition")
+                        continue
+                    except sr.RequestError:
+                        messagebox.showerror("Error", "خطأ في الاتصال. تأكد من الإنترنت.")
+                        status_label.config(text="Status: Error", fg="red")
+                        logging.error("Request error during speech recognition")
+                        break
+                    except Exception as e:
+                        messagebox.showerror("Error", f"خطأ: {str(e)}")
+                        status_label.config(text="Status: Error", fg="red")
+                        logging.error(f"Unexpected error during speech recognition: {str(e)}")
+                        break
+                else:
+                    time.sleep(0.1)  # انتظر إذا كان متوقف مؤقتاً
+            
     except Exception as e:
-        messagebox.showerror("Error", f"خطأ: {str(e)}")
+        messagebox.showerror("Error", f"خطأ في التسجيل: {str(e)}")
         status_label.config(text="Status: Error", fg="red")
-        logging.error(f"Unexpected error during speech recognition: {str(e)}")
+        logging.error(f"Error in capture_audio: {str(e)}")
     finally:
         recording = False
         paused = False

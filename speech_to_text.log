@@ -14,3 +14,112 @@
 2026-01-15 16:31:57,556 - INFO - Speech recognized and converted successfully
 2026-01-15 16:32:03,568 - WARNING - Unknown value error during speech recognition
 2026-01-15 16:32:04,519 - INFO - Speech recognized and converted successfully
+2026-01-15 17:02:46,109 - INFO - Dialect changed to: ar
+2026-01-15 17:03:22,718 - INFO - Speech recognized and converted successfully
+2026-01-15 17:03:42,134 - WARNING - Unknown value error during speech recognition
+2026-01-15 17:03:42,992 - WARNING - Unknown value error during speech recognition
+2026-01-15 17:05:25,519 - INFO - Speech recognized and converted successfully
+2026-01-15 17:05:34,699 - WARNING - Unknown value error during speech recognition
+2026-01-15 17:07:45,505 - WARNING - Unknown value error during speech recognition
+2026-01-15 17:08:01,611 - WARNING - Unknown value error during speech recognition
+2026-01-15 17:08:29,886 - WARNING - Unknown value error during speech recognition
+2026-01-15 17:08:40,571 - INFO - Speech recognized and converted successfully
+2026-01-15 17:09:14,159 - INFO - Speech recognized and converted successfully
+2026-01-15 17:15:03,935 - ERROR - Request error during speech recognition
+2026-01-15 17:15:17,140 - ERROR - Request error during speech recognition
+2026-01-15 17:15:17,718 - ERROR - Request error during speech recognition
+2026-01-15 17:15:43,422 - INFO - Speech recognized and converted successfully
+2026-01-15 17:15:51,393 - INFO - Speech recognized and converted successfully
+2026-01-15 17:16:01,872 - INFO - Speech recognized and converted successfully
+2026-01-15 17:16:13,732 - INFO - Speech recognized and converted successfully
+2026-01-15 17:18:46,076 - INFO - Speech recognized and converted successfully
+2026-01-15 17:19:20,796 - INFO - Speech recognized and converted successfully
+2026-01-15 17:19:43,558 - INFO - Speech recognized and converted successfully
+2026-01-15 17:19:49,286 - WARNING - Unknown value error during speech recognition
+2026-01-15 17:20:03,444 - INFO - Speech recognized and converted successfully
+2026-01-15 17:21:18,372 - INFO - Speech recognized and converted successfully
+2026-01-15 17:21:39,032 - INFO - Speech recognized and converted successfully
+2026-01-15 17:24:06,856 - INFO - Speech recognized and converted successfully
+2026-01-15 17:24:17,296 - INFO - Speech recognized and converted successfully
+2026-01-15 17:24:41,772 - INFO - Speech recognized and converted successfully
+2026-01-15 17:25:04,492 - INFO - Speech recognized and converted successfully
+2026-01-15 17:25:18,949 - INFO - Speech recognized and converted successfully
+2026-01-15 17:25:31,660 - INFO - Speech recognized and converted successfully
+2026-01-15 17:26:18,000 - INFO - Speech recognized and converted successfully
+2026-01-15 17:26:27,009 - INFO - Speech recognized and converted successfully
+2026-01-15 17:26:37,667 - INFO - Speech recognized and converted successfully
+2026-01-15 17:26:55,159 - INFO - Speech recognized and converted successfully
+2026-01-15 17:27:08,645 - INFO - Speech recognized and converted successfully
+2026-01-15 17:28:01,999 - INFO - Speech recognized and converted successfully
+2026-01-15 17:28:13,312 - INFO - Speech recognized and converted successfully
+2026-01-15 17:28:47,452 - INFO - Speech recognized and converted successfully
+2026-01-15 17:28:59,715 - INFO - Speech recognized and converted successfully
+2026-01-15 17:29:08,468 - INFO - Speech recognized and converted successfully
+2026-01-15 17:35:29,381 - INFO - Speech recognized and converted successfully
+2026-01-15 17:36:16,390 - INFO - Speech recognized and converted successfully
+2026-01-15 17:56:24,389 - ERROR - Error in capture_audio: cannot access local variable 'paused' where it is not associated with a value
+2026-01-15 17:56:32,124 - ERROR - Error in capture_audio: cannot access local variable 'paused' where it is not associated with a value
+2026-01-15 17:58:03,867 - ERROR - Error in capture_audio: cannot access local variable 'paused' where it is not associated with a value
+2026-01-15 17:59:09,896 - ERROR - Error in capture_audio: cannot access local variable 'paused' where it is not associated with a value
+2026-01-15 18:00:12,308 - INFO - Speech recognized and converted successfully
+2026-01-15 18:00:16,741 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:00:24,961 - INFO - Speech recognized and converted successfully
+2026-01-15 18:00:29,926 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:00:51,161 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:00:51,877 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:01:02,311 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:01:02,385 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:01:06,666 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:01:06,804 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:01:15,439 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:01:20,492 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:01:29,548 - INFO - Speech recognized and converted successfully
+2026-01-15 18:01:54,345 - INFO - Speech recognized and converted successfully
+2026-01-15 18:02:17,697 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:25,554 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:34,492 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:36,002 - INFO - Speech recognized and converted successfully
+2026-01-15 18:02:39,725 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:40,283 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:42,879 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:48,802 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:51,248 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:52,644 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:53,208 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:54,524 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:55,746 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:58,732 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:02:58,748 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:03:02,385 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:03:02,443 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:03:02,464 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:03:07,257 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:03:07,324 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:03:07,524 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:03:10,713 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:04:19,605 - INFO - Speech recognized and converted successfully
+2026-01-15 18:04:23,821 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:04:41,486 - INFO - Speech recognized and converted successfully
+2026-01-15 18:05:06,159 - INFO - Speech recognized and converted successfully
+2026-01-15 18:05:16,815 - INFO - Speech recognized and converted successfully
+2026-01-15 18:06:21,895 - INFO - Speech recognized and converted successfully
+2026-01-15 18:06:31,598 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:06:44,002 - INFO - Speech recognized and converted successfully
+2026-01-15 18:06:44,531 - INFO - Speech recognized and converted successfully
+2026-01-15 18:07:32,517 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:46,471 - INFO - Speech recognized and converted successfully
+2026-01-15 18:08:46,949 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:49,161 - INFO - Speech recognized and converted successfully
+2026-01-15 18:08:53,511 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:53,603 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:53,743 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:56,163 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:56,209 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:56,370 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:58,475 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:58,693 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:08:58,713 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:09:00,586 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:09:03,825 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:09:03,913 - WARNING - Unknown value error during speech recognition
+2026-01-15 18:09:04,021 - WARNING - Unknown value error during speech recognition
