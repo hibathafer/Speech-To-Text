@@ -3,6 +3,22 @@ from tkinter import filedialog, messagebox, ttk
 import speech_recognition as sr
 import threading
 import time
+import os
+import configparser
+import logging
+
+# Setup logging
+logging.basicConfig(filename='speech_to_text.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Setup config
+config = configparser.ConfigParser()
+config_file = 'settings.ini'
+if os.path.exists(config_file):
+    config.read(config_file)
+else:
+    config['Settings'] = {'dialect': 'ar-SA'}
+    with open(config_file, 'w') as f:
+        config.write(f)
 
 # =====================
 # Main Window
@@ -61,7 +77,7 @@ ARABIC_DIALECTS = {
     "عام (ar)": "ar",
 }
 
-selected_dialect = "ar-SA"
+selected_dialect = config['Settings'].get('dialect', 'ar-SA')
 
 # عداد الجمل
 sentence_count = 0
@@ -127,6 +143,10 @@ dialect_combo.pack(side="left", padx=5)
 def on_dialect_change(event=None):
     global selected_dialect
     selected_dialect = ARABIC_DIALECTS[dialect_combo.get()]
+    config['Settings']['dialect'] = selected_dialect
+    with open(config_file, 'w') as f:
+        config.write(f)
+    logging.info(f"Dialect changed to: {selected_dialect}")
 
 dialect_combo.bind("<<ComboboxSelected>>", on_dialect_change)
 
@@ -263,6 +283,41 @@ def clear_text():
     text_area.delete("1.0", tk.END)
     sentence_count = 0  # إعادة تعيين عداد الجمل
 
+def load_audio_file():
+    file_path = filedialog.askopenfilename(
+        title="اختر ملف صوتي",
+        filetypes=[("Audio files", "*.wav *.flac *.mp3"), ("All files", "*.*")]
+    )
+    if file_path:
+        status_label.config(text="Status: Loading file...", fg="blue")
+        thread = threading.Thread(target=convert_audio_file, args=(file_path,), daemon=True)
+        thread.start()
+
+def convert_audio_file(file_path):
+    try:
+        status_label.config(text="Status: Converting file...", fg="purple")
+        with sr.AudioFile(file_path) as source:
+            audio_data = recognizer.record(source)
+        text = recognizer.recognize_google(audio_data, language=selected_dialect)
+        text = convert_special_characters(text)
+        formatted_text = format_text_output(text)
+        text_area.insert(tk.END, formatted_text)
+        text_area.see(tk.END)
+        status_label.config(text="Status: Done", fg="green")
+        logging.info(f"Converted audio file: {file_path}")
+    except sr.UnknownValueError:
+        messagebox.showwarning("Warning", "لم يتمكن النظام من فهم الصوت في الملف.")
+        status_label.config(text="Status: Idle", fg="gray")
+        logging.warning(f"Unknown value in file: {file_path}")
+    except sr.RequestError:
+        messagebox.showerror("Error", "خطأ في الاتصال. تأكد من الإنترنت.")
+        status_label.config(text="Status: Error", fg="red")
+        logging.error(f"Request error for file: {file_path}")
+    except Exception as e:
+        messagebox.showerror("Error", f"خطأ: {str(e)}")
+        status_label.config(text="Status: Error", fg="red")
+        logging.error(f"Error converting file {file_path}: {str(e)}")
+
 def save_text():
     file_path = filedialog.asksaveasfilename(
         defaultextension=".txt",
@@ -328,6 +383,9 @@ resume_button.pack(side="left", padx=10, pady=5, expand=True)
 # =====================
 action_buttons_frame = tk.Frame(main_frame, bg="#f0f0f0", relief="groove", bd=2)
 action_buttons_frame.pack(fill="x", pady=10)
+
+load_button = tk.Button(action_buttons_frame, text="📁 تحميل ملف صوتي", font=("Segoe UI", 11, "bold"), width=18, height=2, bg="#9b59b6", fg="white", relief="raised", bd=2, command=load_audio_file)
+load_button.pack(side="left", padx=5, pady=5, expand=True)
 
 save_button = tk.Button(action_buttons_frame, text="💾 حفظ الملف", font=("Segoe UI", 11, "bold"), width=15, height=2, bg="#27ae60", fg="white", relief="raised", bd=2, command=save_text)
 save_button.pack(side="left", padx=5, pady=5, expand=True)
