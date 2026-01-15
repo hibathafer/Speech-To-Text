@@ -131,44 +131,16 @@ def on_dialect_change(event=None):
 dialect_combo.bind("<<ComboboxSelected>>", on_dialect_change)
 
 # =====================
-# Microphone Button
+# Text Area + Scrollbar (moved early for function access)
 # =====================
-mic_button = tk.Button(main_frame, text="🎙️ Start Recording", font=("Segoe UI", 14), width=20, height=2, bg="#3498db", fg="white", relief="flat")
-mic_button.pack(pady=15)
-
-# Control Buttons Frame
-control_frame = tk.Frame(main_frame)
-control_frame.pack(fill="x", pady=10)
-
-pause_button = tk.Button(control_frame, text="⏸️ Pause", font=("Segoe UI", 11), width=10, bg="#a9b5eb", fg="white", relief="flat", state="disabled")
-pause_button.pack(side="left", padx=5)
-
-resume_button = tk.Button(control_frame, text="▶️ Resume", font=("Segoe UI", 11), width=10, bg="#9eebdc", fg="white", relief="flat", state="disabled")
-resume_button.pack(side="left", padx=5)
-
-# =====================
-# Text Area + Scrollbar
-# =====================
-text_frame = tk.Frame(main_frame)
-text_frame.pack(fill="both", expand=True, pady=10)
+text_frame = tk.Frame(main_frame, bg="#ffffff", relief="sunken", bd=2)
 
 scrollbar = tk.Scrollbar(text_frame)
-scrollbar.pack(side="right", fill="y")
 
-text_area = tk.Text(text_frame, wrap="word", yscrollcommand=scrollbar.set, font=("Segoe UI", 11))
-text_area.pack(side="top", fill="both", expand=True)
+text_area = tk.Text(text_frame, wrap="word", yscrollcommand=scrollbar.set, font=("Segoe UI", 12), bg="#f9f9f9", fg="#333333", insertbackground="#333333")
 
 scrollbar.config(command=text_area.yview)
 
-# =====================
-# Action Buttons Frame (يجب أن يكون بعد text_area)
-# =====================
-action_buttons_frame = tk.Frame(main_frame)
-action_buttons_frame.pack(fill="x", pady=10)
-
-# =====================
-# Button Functions
-# =====================
 def update_timer():
     """تحديث العداد بشكل مستمر"""
     global timer_running, start_time, paused_time, paused
@@ -321,7 +293,7 @@ def share_text():
         messagebox.showwarning("تحذير", "لا يوجد نص للمشاركة!")
         return
     
-    # إنشнякة لنسخ النص للمشاركة
+    # إنشاء نسخة لنسخ النص للمشاركة
     root.clipboard_clear()
     root.clipboard_append(text)
     messagebox.showinfo("مشاركة", 
@@ -333,21 +305,53 @@ def share_text():
         "📧 البريد الإلكتروني\n"
         "وغيرها...")
 
-# Exit Button
-save_button = tk.Button(action_buttons_frame, text="💾 حفظ الملف", font=("Segoe UI", 11), width=12, bg="#27ae60", fg="white", relief="flat", command=save_text)
-save_button.pack(side="left", padx=5)
+# =====================
+# Microphone Button
+# =====================
+mic_button = tk.Button(main_frame, text="🎙️ Start Recording", font=("Segoe UI", 14, "bold"), width=25, height=2, bg="#3498db", fg="white", relief="raised", bd=3)
+mic_button.pack(pady=15)
 
-copy_button = tk.Button(action_buttons_frame, text="📋 نسخ", font=("Segoe UI", 11), width=10, bg="#3498db", fg="white", relief="flat", command=copy_to_clipboard)
-copy_button.pack(side="left", padx=5)
+# =====================
+# Control Buttons Frame
+# =====================
+control_frame = tk.Frame(main_frame, bg="#f0f0f0", relief="groove", bd=2)
+control_frame.pack(fill="x", pady=10)
 
-share_button = tk.Button(action_buttons_frame, text="📤 مشاركة", font=("Segoe UI", 11), width=12, bg="#1abc9c", fg="white", relief="flat", command=share_text)
-share_button.pack(side="left", padx=5)
+pause_button = tk.Button(control_frame, text="⏸️ Pause", font=("Segoe UI", 12, "bold"), width=15, height=2, bg="#f39c12", fg="white", relief="raised", bd=2, state="disabled")
+pause_button.pack(side="left", padx=10, pady=5, expand=True)
 
-clear_button = tk.Button(action_buttons_frame, text="🗑️ مسح النص", font=("Segoe UI", 11), width=12, bg="#f39c12", fg="white", relief="flat", command=clear_text)
-clear_button.pack(side="left", padx=5)
+resume_button = tk.Button(control_frame, text="▶️ Resume", font=("Segoe UI", 12, "bold"), width=15, height=2, bg="#27ae60", fg="white", relief="raised", bd=2, state="disabled")
+resume_button.pack(side="left", padx=10, pady=5, expand=True)
 
-exit_button = tk.Button(action_buttons_frame, text="❌ الخروج", font=("Segoe UI", 11), width=10, bg="#e74c3c", fg="white", relief="flat", command=exit_app)
-exit_button.pack(side="left", padx=5)
+# =====================
+# Action Buttons Frame
+# =====================
+action_buttons_frame = tk.Frame(main_frame, bg="#f0f0f0", relief="groove", bd=2)
+action_buttons_frame.pack(fill="x", pady=10)
+
+save_button = tk.Button(action_buttons_frame, text="💾 حفظ الملف", font=("Segoe UI", 11, "bold"), width=15, height=2, bg="#27ae60", fg="white", relief="raised", bd=2, command=save_text)
+save_button.pack(side="left", padx=5, pady=5, expand=True)
+
+copy_button = tk.Button(action_buttons_frame, text="📋 نسخ", font=("Segoe UI", 11, "bold"), width=12, height=2, bg="#3498db", fg="white", relief="raised", bd=2, command=copy_to_clipboard)
+copy_button.pack(side="left", padx=5, pady=5, expand=True)
+
+share_button = tk.Button(action_buttons_frame, text="📤 مشاركة", font=("Segoe UI", 11, "bold"), width=15, height=2, bg="#1abc9c", fg="white", relief="raised", bd=2, command=share_text)
+share_button.pack(side="left", padx=5, pady=5, expand=True)
+
+clear_button = tk.Button(action_buttons_frame, text="🗑️ مسح النص", font=("Segoe UI", 11, "bold"), width=15, height=2, bg="#e67e22", fg="white", relief="raised", bd=2, command=clear_text)
+clear_button.pack(side="left", padx=5, pady=5, expand=True)
+
+exit_button = tk.Button(action_buttons_frame, text="❌ الخروج", font=("Segoe UI", 11, "bold"), width=12, height=2, bg="#e74c3c", fg="white", relief="raised", bd=2, command=exit_app)
+exit_button.pack(side="left", padx=5, pady=5, expand=True)
+
+# =====================
+# Text Area + Scrollbar
+# =====================
+text_frame.pack(fill="both", expand=True, pady=10)
+
+scrollbar.pack(side="right", fill="y")
+
+text_area.pack(side="top", fill="both", expand=True)
 
 # Connect Microphone Button
 mic_button.config(command=record_audio)
